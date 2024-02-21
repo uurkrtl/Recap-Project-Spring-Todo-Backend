@@ -34,15 +34,15 @@ class TodoItemControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/api/todo"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(
+                """
+                        [
+                         {
+                             "id": "1",
+                             "description": "Complete the project",
+                             "status": "DONE"
+                         }
+                        ]
                         """
-                                [
-                                 {
-                                     "id": "1",
-                                     "description": "Complete the project",
-                                     "status": "DONE"
-                                 }
-                                ]
-                                """
                 ));
     }
 
