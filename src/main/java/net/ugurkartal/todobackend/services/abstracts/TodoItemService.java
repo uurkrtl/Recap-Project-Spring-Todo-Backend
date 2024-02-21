@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface TodoItemService {
     List<TodoItemGetResponse> getAllTodoItems();
-    List<TodoItemGetResponse> getByStatusItems(TodoItemStatus status);
-    TodoItemGetResponse getTodoItemById(Long id);
-    TodoItemGetResponse createTodoItem(TodoItemCreateRequest todoItemCreateRequest);
-    TodoItemGetResponse updateTodoItem(Long id, TodoItemUpdateRequest todoItemUpdateRequest);
-    void deleteTodoItem(Long id);
+    List<TodoItemGetResponse> getByStatusTodoItems(TodoItemStatus status);
+    TodoItemGetResponse getTodoItemById(String id);
+    TodoItemGetResponse addTodoItem(TodoItemCreateRequest todoItemCreateRequest);
+    TodoItemGetResponse updateTodoItem(String id, TodoItemUpdateRequest todoItemUpdateRequest);
+    void deleteTodoItem(String id);
 }

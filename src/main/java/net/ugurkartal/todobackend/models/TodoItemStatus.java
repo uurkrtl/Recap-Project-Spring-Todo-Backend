@@ -1,5 +1,5 @@
 package net.ugurkartal.todobackend.models;
 
 public enum TodoItemStatus {
-    TODO, DOING, DONE
+    OPEN, IN_PROGRESS, DONE
 }

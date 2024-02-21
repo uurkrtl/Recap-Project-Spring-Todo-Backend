@@ -10,8 +10,8 @@ import java.util.List;
 public interface TodoItemRepository {
     List<TodoItem> findAll();
     List<TodoItem> findByStatus(TodoItemStatus status);
-    TodoItem findById(Long id);
+    TodoItem findById(String id);
     TodoItem save(TodoItem todoItem);
     TodoItem update(TodoItem todoItem);
-    void deleteById(Long id);
+    void deleteById(String  id);
 }

@@ -1,16 +1,14 @@
 package net.ugurkartal.todobackend.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@With
 public class TodoItem {
-    private long id;
+    private String id;
     private String description;
     private TodoItemStatus status;
 }
