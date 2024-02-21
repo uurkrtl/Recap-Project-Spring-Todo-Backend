@@ -19,6 +19,7 @@ import java.util.UUID;
 public class TodoItemManager implements TodoItemService {
     private final TodoItemRepository todoItemRepository;
     private final TodoItemMapper todoItemMapper;
+    private final ChatGptManager chatGptManager;
     @Override
     public List<TodoItemGetResponse> getAllTodoItems() {
         return this.todoItemMapper.itemsToItemsGetResponse(todoItemRepository.findAll());
@@ -31,8 +32,11 @@ public class TodoItemManager implements TodoItemService {
 
     @Override
     public TodoItemGetResponse addTodoItem(TodoItemCreateRequest todoItemCreateRequest) {
-        TodoItem todoItem = this.todoItemRepository.save(this.todoItemMapper.createToItem(todoItemCreateRequest).withStatus(TodoItemStatus.OPEN).withId(String.valueOf(UUID.randomUUID())));
-        return this.todoItemMapper.itemToItemGetResponse(todoItem);
+        TodoItem newTodoItem = this.todoItemMapper.createToItem(todoItemCreateRequest).withStatus(TodoItemStatus.OPEN).withId(String.valueOf(UUID.randomUUID()));
+        String chatGptMessage = chatGptManager.askQuestion(newTodoItem.getDescription());
+        newTodoItem.setDescription(chatGptMessage.charAt(chatGptMessage.length()-1) == '.' ? chatGptMessage.substring(0, chatGptMessage.length()-1) : chatGptMessage);
+        newTodoItem = this.todoItemRepository.save(newTodoItem);
+        return this.todoItemMapper.itemToItemGetResponse(newTodoItem);
     }
 
     @Override
