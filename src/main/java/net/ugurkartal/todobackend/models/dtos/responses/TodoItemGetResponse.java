@@ -11,7 +11,7 @@ import net.ugurkartal.todobackend.models.TodoItemStatus;
 @NoArgsConstructor
 @Builder
 public class TodoItemGetResponse {
-    private long id;
+    private String id;
     private String description;
     private TodoItemStatus status;
 }
