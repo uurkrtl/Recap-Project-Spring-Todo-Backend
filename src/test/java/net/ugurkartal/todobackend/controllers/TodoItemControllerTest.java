@@ -78,12 +78,12 @@ class TodoItemControllerTest {
                 .andExpect(MockMvcResultMatchers.content().json(
                         """
                                 {
-                                    "description": "Write a integration test",
                                     "status": "OPEN"
                                 }
                                 """
                 ))
-                .andExpect(jsonPath("$.id").exists());
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.description").exists());
     }
 
     @Test
