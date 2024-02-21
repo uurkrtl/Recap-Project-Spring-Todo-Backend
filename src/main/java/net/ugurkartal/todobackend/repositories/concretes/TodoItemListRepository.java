@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-@Repository
-public class TodoItemListRepository implements TodoItemRepository {
+//@Repository
+public class TodoItemListRepository {
     private List<TodoItem> todoItemList;
 
     public TodoItemListRepository() {
@@ -20,19 +20,19 @@ public class TodoItemListRepository implements TodoItemRepository {
         todoItemList.add(new TodoItem("5L", "Fifth Todo Item", TodoItemStatus.IN_PROGRESS));
     }
 
-    @Override
+    //@Override
     public List<TodoItem> findAll() {
         return todoItemList;
     }
 
-    @Override
+    //@Override
     public List<TodoItem> findByStatus(TodoItemStatus status) {
         return todoItemList.stream()
                 .filter(todoItem -> todoItem.getStatus() == status)
                 .toList();
     }
 
-    @Override
+    //@Override
     public TodoItem findById(String  id) {
         return todoItemList.stream()
                 .filter(todoItem -> todoItem.getId().equals(id))
@@ -40,13 +40,13 @@ public class TodoItemListRepository implements TodoItemRepository {
                 .orElse(null);
     }
 
-    @Override
+    //@Override
     public TodoItem save(TodoItem todoItem) {
         todoItemList.add(todoItem);
         return todoItem;
     }
 
-    @Override
+    //@Override
     public TodoItem update(TodoItem todoItem) {
         for (int i = 0; i < todoItemList.size(); i++) {
             if (todoItemList.get(i).getId().equals(todoItem.getId())) {
@@ -57,7 +57,7 @@ public class TodoItemListRepository implements TodoItemRepository {
         return null;
     }
 
-    @Override
+    //@Override
     public void deleteById(String id) {
         todoItemList.removeIf(todoItem -> todoItem.getId().equals(id));
     }

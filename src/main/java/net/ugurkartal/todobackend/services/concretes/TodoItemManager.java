@@ -7,7 +7,6 @@ import net.ugurkartal.todobackend.models.dtos.requests.TodoItemCreateRequest;
 import net.ugurkartal.todobackend.models.dtos.requests.TodoItemUpdateRequest;
 import net.ugurkartal.todobackend.models.dtos.responses.TodoItemGetResponse;
 import net.ugurkartal.todobackend.repositories.abstracts.TodoItemRepository;
-import net.ugurkartal.todobackend.repositories.concretes.TodoItemListRepository;
 import net.ugurkartal.todobackend.services.abstracts.TodoItemService;
 import net.ugurkartal.todobackend.services.mappers.TodoItemMapper;
 import org.springframework.stereotype.Service;
@@ -26,13 +25,8 @@ public class TodoItemManager implements TodoItemService {
     }
 
     @Override
-    public List<TodoItemGetResponse> getByStatusTodoItems(TodoItemStatus status) {
-        return this.todoItemMapper.itemsToItemsGetResponse(todoItemRepository.findByStatus(status));
-    }
-
-    @Override
     public TodoItemGetResponse getTodoItemById(String id) {
-        return this.todoItemMapper.itemToItemGetResponse(todoItemRepository.findById(id));
+        return this.todoItemMapper.itemToItemGetResponse(todoItemRepository.findById(id).orElse(null));
     }
 
     @Override
@@ -43,7 +37,7 @@ public class TodoItemManager implements TodoItemService {
 
     @Override
     public TodoItemGetResponse updateTodoItem(String id, TodoItemUpdateRequest todoItemUpdateRequest) {
-        TodoItem todoItem = this.todoItemRepository.update(this.todoItemMapper.updateToItem(todoItemUpdateRequest).withId(id));
+        TodoItem todoItem = this.todoItemRepository.save(this.todoItemMapper.updateToItem(todoItemUpdateRequest).withId(id));
         todoItem.setId(id);
         return this.todoItemMapper.itemToItemGetResponse(todoItem);
     }
