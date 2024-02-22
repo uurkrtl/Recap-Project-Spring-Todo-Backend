@@ -1,6 +1,5 @@
 package net.ugurkartal.todobackend.services.abstracts;
 
-import net.ugurkartal.todobackend.models.TodoItemStatus;
 import net.ugurkartal.todobackend.models.dtos.requests.TodoItemCreateRequest;
 import net.ugurkartal.todobackend.models.dtos.requests.TodoItemUpdateRequest;
 import net.ugurkartal.todobackend.models.dtos.responses.TodoItemGetResponse;
@@ -13,4 +12,5 @@ public interface TodoItemService {
     TodoItemGetResponse addTodoItem(TodoItemCreateRequest todoItemCreateRequest);
     TodoItemGetResponse updateTodoItem(String id, TodoItemUpdateRequest todoItemUpdateRequest);
     void deleteTodoItem(String id);
+    String generateNewTodoItems(String topic);
 }

@@ -19,8 +19,18 @@ public class ChatGptManager {
                 .build();
     }
 
-    public String askQuestion(String description) {
+    public String correctText(String description) {
         String question = "Spelling and grammar correction for todo list (Just write the text you corrected): " + description;
+        ChatGPTRequest request = new ChatGPTRequest(question);
+        ChatGPTResponse response = client.post()
+                .body(request)
+                .retrieve()
+                .body(ChatGPTResponse.class);
+        return response.getAnswer();
+    }
+
+    public String generateNewTodoItems(String topic) {
+        String question = "Generate approximately 20-30 new todo item. Topic: " + topic;
         ChatGPTRequest request = new ChatGPTRequest(question);
         ChatGPTResponse response = client.post()
                 .body(request)

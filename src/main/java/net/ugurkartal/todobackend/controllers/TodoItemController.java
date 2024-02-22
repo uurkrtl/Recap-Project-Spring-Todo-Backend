@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TodoItemController {
     private final TodoItemService todoItemService;
-    private final TodoItemRepository todoItemRepository;
 
     @GetMapping
     public List<TodoItemGetResponse> getAllTodoItems() {
@@ -40,5 +39,10 @@ public class TodoItemController {
     @DeleteMapping("/{id}")
     public void deleteTodoItem(@PathVariable String id) {
         todoItemService.deleteTodoItem(id);
+    }
+
+    @PostMapping("/initialize/{topic}")
+    public String generateNewTodoItems(@PathVariable String topic) {
+        return todoItemService.generateNewTodoItems(topic);
     }
 }

@@ -33,7 +33,7 @@ public class TodoItemManager implements TodoItemService {
     @Override
     public TodoItemGetResponse addTodoItem(TodoItemCreateRequest todoItemCreateRequest) {
         TodoItem newTodoItem = this.todoItemMapper.createToItem(todoItemCreateRequest).withStatus(TodoItemStatus.OPEN).withId(String.valueOf(UUID.randomUUID()));
-        String chatGptMessage = chatGptManager.askQuestion(newTodoItem.getDescription());
+        String chatGptMessage = chatGptManager.correctText(newTodoItem.getDescription());
         newTodoItem.setDescription(chatGptMessage.charAt(chatGptMessage.length()-1) == '.' ? chatGptMessage.substring(0, chatGptMessage.length()-1) : chatGptMessage);
         newTodoItem = this.todoItemRepository.save(newTodoItem);
         return this.todoItemMapper.itemToItemGetResponse(newTodoItem);
@@ -49,5 +49,10 @@ public class TodoItemManager implements TodoItemService {
     @Override
     public void deleteTodoItem(String id) {
         this.todoItemRepository.deleteById(id);
+    }
+
+    @Override
+    public String generateNewTodoItems(String topic) {
+        return chatGptManager.correctText(topic);
     }
 }
